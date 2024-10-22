@@ -17,6 +17,6 @@ public class MemberService {
     public String addMember(MemberDTO.RegisterReq req) {
         Member member = Member.builder().req(req).build();
         memberRepository.save(member);
-        return member.getUserId();
+        return member.getMemberId();
     }
 }

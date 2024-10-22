@@ -16,7 +16,9 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String userId;
+    private String memberId;
+
+    private String memberInputId;
 
     private String password;
 
@@ -28,6 +30,7 @@ public class Member {
 
     @Builder
     public Member(MemberDTO.RegisterReq req) {
+        this.memberInputId = req.getMemberInputId();
         this.password = req.getPassword();
         this.email = req.getEmail();
         this.phoneNumber = req.getPhoneNumber();
