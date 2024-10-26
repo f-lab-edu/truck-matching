@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Entity(name = "MEMBER")
 @NoArgsConstructor
@@ -28,6 +31,10 @@ public class Member {
 
     private String accountType;
 
+    private String created;
+
+    private String updated;
+
     @Builder
     public Member(MemberDTO.RegisterReq req) {
         this.memberInputId = req.getMemberInputId();
@@ -35,5 +42,7 @@ public class Member {
         this.email = req.getEmail();
         this.phoneNumber = req.getPhoneNumber();
         this.accountType = req.getAccountType();
+        this.created = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.updated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

@@ -16,8 +16,8 @@ public class MemberApiController {
     private final MemberService memberService;
 
     @PostMapping("/api/v1/member")
-    public ResponseEntity<String> addMember(@RequestBody MemberDTO.RegisterReq req) {
-        String userId = memberService.addMember(req);
+    public ResponseEntity<String> create(@RequestBody MemberDTO.RegisterReq req) {
+        String userId = memberService.create(req);
         return ResponseEntity.status(HttpStatus.OK).body(userId);
     }
 
