@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.2.10'
+	id 'org.springframework.boot' version '3.2.11'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
@@ -19,34 +19,54 @@ configurations {
 	}
 }
 
-repositories {
-	mavenCentral()
+allprojects {
+	repositories {
+		mavenCentral()
+	}
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'java-library'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
-	// jwt
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
 
-	// mysql
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+	dependencies {
+		implementation 'org.projectlombok:lombok:1.18.22'
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+project(':module-admin') {
+	jar {
+		archiveBaseName = 'module-admin'
+	}
+}
+
+project(':module-member') {
+	jar {
+		archiveBaseName = 'module-member'
+	}
+}
+
+project(':module-shipper') {
+	jar {
+		archiveBaseName = 'module-shipper'
+	}
+}
+
+project(':module-trucker') {
+	jar {
+		archiveBaseName = 'module-trucker'
+	}
 }
