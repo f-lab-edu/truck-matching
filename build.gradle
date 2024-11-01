@@ -38,7 +38,6 @@ subprojects {
 	}
 
 	dependencies {
-		implementation 'org.projectlombok:lombok:1.18.22'
 	}
 
 	test {
@@ -47,26 +46,3 @@ subprojects {
 
 }
 
-project(':module-admin') {
-	jar {
-		archiveBaseName = 'module-admin'
-	}
-}
-
-project(':module-member') {
-	jar {
-		archiveBaseName = 'module-member'
-	}
-}
-
-project(':module-shipper') {
-	jar {
-		archiveBaseName = 'module-shipper'
-	}
-}
-
-project(':module-trucker') {
-	jar {
-		archiveBaseName = 'module-trucker'
-	}
-}

@@ -1,5 +1,6 @@
 package com.flab.truck_matching.member.repository;
 
+import com.flab.modulemember.ModuleMemberApplication;
 import com.flab.modulemember.member.domain.Member;
 import com.flab.modulemember.member.dto.MemberDTO;
 import com.flab.modulemember.member.repository.MemberRepository;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest(showSql = true)
 @TestPropertySource("classpath:test-application.properties")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ContextConfiguration(classes = ModuleMemberApplication.class)
 class MemberRepositoryTest {
 
     @Autowired

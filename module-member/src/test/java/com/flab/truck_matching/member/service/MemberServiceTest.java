@@ -1,5 +1,6 @@
 package com.flab.truck_matching.member.service;
 
+import com.flab.modulemember.ModuleMemberApplication;
 import com.flab.modulemember.member.dto.MemberDTO;
 import com.flab.modulemember.member.service.MemberService;
 import org.assertj.core.api.Assertions;
@@ -12,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(classes = ModuleMemberApplication.class)
 @TestPropertySource("classpath:test-application.properties")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MemberServiceTest {
