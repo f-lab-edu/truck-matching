@@ -1,1 +1,5 @@
 rootProject.name = 'truck-matching'
+include 'module-member'
+include 'module-shipper'
+include 'module-trucker'
+include 'module-admin'
