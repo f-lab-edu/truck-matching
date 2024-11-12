@@ -33,4 +33,9 @@ public class ShipmentApiController {
         ShipmentDTO.BasicInfo basicInfo = shipmentService.get(shipmentId);
         return ResponseEntity.status(HttpStatus.OK).body(basicInfo);
     }
+
+    @PutMapping("/{shipmentId}/shipment-status/{status}")
+    public void updateStatus(@PathVariable String shipmentId, @PathVariable String status) {
+        shipmentService.updateStatus(shipmentId, status);
+    }
 }

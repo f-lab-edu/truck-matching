@@ -1,4 +1,5 @@
-package com.flab.modulemember.member.domain;
+package com.flab.moduletrucker.truck.domain;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,28 +11,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity(name = "MEMBER")
+@Entity(name = "CAR")
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Member {
+public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    private String carId;
+
     private String memberId;
 
-    private String memberInputId;
-
-    private String password;
-
-    private String email;
-
-    private String phoneNumber;
-
-    private String accountType;
-
-    private String created;
-
-    private String updated;
+    private String carType;
 
 }

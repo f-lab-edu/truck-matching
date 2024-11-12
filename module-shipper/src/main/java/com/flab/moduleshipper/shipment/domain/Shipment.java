@@ -1,10 +1,10 @@
 package com.flab.moduleshipper.shipment.domain;
 
-import com.flab.moduleshipper.shipment.dto.ShipmentDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,11 +12,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity(name = "SHIPMENT")
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Shipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String shipmentId;
+
+    private String memberId;
 
     private String companyName;
 
@@ -34,15 +38,9 @@ public class Shipment {
 
     private String comment;
 
-    @Builder
-    public Shipment(ShipmentDTO.ShipmentRequest req) {
-        this.companyName = req.getCompanyName();
-        this.shipperName = req.getShipperName();
-        this.businessRegistrationNumber = req.getBusinessRegistrationNumber();
-        this.fromAddress = req.getFromAddress();
-        this.toAddress = req.getToAddress();
-        this.shipmentDate = req.getShipmentDate();
-        this.shipmentType = req.getShipmentType();
-        this.comment = req.getComment();
+    private String shipmentStatus;
+
+    public void changeStatus(String status) {
+        this.shipmentStatus = status;
     }
 }

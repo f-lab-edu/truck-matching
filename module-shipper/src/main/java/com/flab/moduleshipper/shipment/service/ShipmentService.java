@@ -6,9 +6,11 @@ import com.flab.moduleshipper.shipment.repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -18,7 +20,7 @@ public class ShipmentService {
     private final ShipmentRepository shipmentRepository;
 
     public String create(ShipmentDTO.ShipmentRequest req) {
-        Shipment shipment = Shipment.builder().req(req).build();
+        Shipment shipment = req.dtoToDomain(req);
         Shipment save = shipmentRepository.save(shipment);
         return save.getShipmentId();
     }
@@ -39,5 +41,14 @@ public class ShipmentService {
             return new ShipmentDTO.BasicInfo(shipment);
         }
         return null;
+    }
+
+    @Transactional
+    public void updateStatus(String shipmentId, String status) {
+        Optional<Shipment> byId = shipmentRepository.findById(shipmentId);
+        if (byId.isPresent()) {
+            Shipment shipment = byId.get();
+            shipment.changeStatus(status);
+        }
     }
 }
