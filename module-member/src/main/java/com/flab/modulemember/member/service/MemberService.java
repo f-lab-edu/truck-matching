@@ -17,7 +17,7 @@ public class MemberService {
     public String create(MemberDTO.RegisterReq req) {
         req.setPassword(encoder.encode(req.getPassword()));
 
-        Member member = Member.builder().req(req).build();
+        Member member = req.dtoToDomain(req);
         memberRepository.save(member);
         return member.getMemberId();
     }
