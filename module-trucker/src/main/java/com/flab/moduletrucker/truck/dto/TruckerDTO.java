@@ -1,5 +1,6 @@
 package com.flab.moduletrucker.truck.dto;
 
+import com.flab.moduletrucker.truck.domain.Account;
 import com.flab.moduletrucker.truck.domain.Car;
 import com.flab.moduletrucker.truck.domain.Contract;
 import lombok.Data;
@@ -23,6 +24,20 @@ public class TruckerDTO {
 
     @Data
     @NoArgsConstructor
+    public static class CarInfo {
+        private String carId;
+        private String memberId;
+        private String carType;
+
+        public CarInfo(Car car) {
+            this.carId = car.getCarId();
+            this.memberId = car.getMemberId();
+            this.carType = car.getCarType();
+        }
+    }
+
+    @Data
+    @NoArgsConstructor
     public static class ContractRequest {
         private String truckerMemberId;
         private String shipmentId;
@@ -35,6 +50,22 @@ public class TruckerDTO {
                     .shipmentId(req.getShipmentId())
                     .carId(req.getCarId())
                     .contractStatus("concluded")
+                    .build();
+        }
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class AccountRequest {
+        private String accountNo;
+        private String accountName;
+        private String accountBank;
+
+        public Account dtoToDomain(TruckerDTO.AccountRequest req) {
+            return Account.builder()
+                    .accountNo(req.getAccountNo())
+                    .accountName(req.getAccountName())
+                    .accountBank(req.getAccountBank())
                     .build();
         }
     }
