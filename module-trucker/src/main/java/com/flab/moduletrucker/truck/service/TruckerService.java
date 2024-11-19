@@ -9,6 +9,7 @@ import com.flab.moduletrucker.truck.feign.ShipperClient;
 import com.flab.moduletrucker.truck.repository.AccountRepository;
 import com.flab.moduletrucker.truck.repository.CarRepository;
 import com.flab.moduletrucker.truck.repository.ContractRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Builder
 public class TruckerService {
 
     private final CarRepository carRepository;
