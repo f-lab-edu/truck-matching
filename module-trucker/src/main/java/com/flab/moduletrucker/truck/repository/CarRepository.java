@@ -1,12 +1,7 @@
 package com.flab.moduletrucker.truck.repository;
 
 import com.flab.moduletrucker.truck.domain.Car;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
-public interface CarRepository {
-    
-    Car save(Car car);
-
-    Optional<Car> findById(String carId);
+public interface CarRepository extends JpaRepository<Car, String> {
 }

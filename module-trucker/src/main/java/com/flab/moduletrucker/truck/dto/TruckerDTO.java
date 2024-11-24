@@ -70,4 +70,22 @@ public class TruckerDTO {
         }
     }
 
+    @Data
+    @NoArgsConstructor
+    public static class ContractResponse {
+        private String contractId;
+        private String truckerMemberId;
+        private String shipmentId;
+        private String carId;
+        private String contractStatus;
+
+        public ContractResponse(Contract contract) {
+            this.contractId = contract.getContractId();
+            this.truckerMemberId = contract.getTruckerMemberId();
+            this.shipmentId = contract.getShipmentId();
+            this.carId = contract.getCarId();
+            this.contractStatus = contract.getContractStatus();
+        }
+    }
+
 }
