@@ -8,6 +8,7 @@ import com.flab.moduletrucker.truck.repository.ContractRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class ContractService {
     private final ContractRepository contractRepository;
     private final ShipperClient shipperClient;
 
+    @Async(value = "taskExecutor")
     public String createContract(TruckerDTO.ContractRequest req) {
         ResponseEntity<ShipmentDTO.BasicInfo> basicInfoResponseEntity = shipperClient.get(req.getShipmentId());
         ShipmentDTO.BasicInfo basicInfo = basicInfoResponseEntity.getBody();
@@ -35,6 +37,7 @@ public class ContractService {
         }
     }
 
+    @Async(value = "taskExecutor")
     public String updateContractStatus(String contractId, String status) {
         Optional<Contract> byId = contractRepository.findById(contractId);
         if (byId.isPresent()) {
@@ -46,6 +49,7 @@ public class ContractService {
         }
     }
 
+    @Async(value = "taskExecutor")
     public TruckerDTO.ContractResponse getContract(String contractId) {
         Optional<Contract> byId = contractRepository.findById(contractId);
         if (byId.isPresent()) {
