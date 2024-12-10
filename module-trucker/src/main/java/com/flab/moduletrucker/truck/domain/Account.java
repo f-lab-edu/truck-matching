@@ -10,25 +10,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity(name = "CONTRACT")
+@Entity(name = "ACCOUNT")
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Contract {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String contractId;
+    private String accountId;
 
-    private String truckerMemberId;
+    private String accountNo;
 
-    private String shipmentId;
+    private String accountName;
 
-    private String carId;
+    private String accountBank;
 
-    private String contractStatus;
-
-    public void changeStatus(String status) {
-        this.contractStatus = status;
-    }
 }
