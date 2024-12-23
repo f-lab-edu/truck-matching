@@ -20,10 +20,12 @@ import java.util.concurrent.CompletableFuture;
 public class ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
+    private final ShipmentProducer shipmentProducer;
 
     public String create(ShipmentDTO.ShipmentRequest req) {
         Shipment shipment = req.dtoToDomain(req);
         Shipment save = shipmentRepository.save(shipment);
+        shipmentProducer.sendShipment(save);
         return save.getShipmentId();
     }
 
