@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.flab.shipment.kafka;
+
+message ShipmentMessage {
+  string shipmentId = 1;
+  string memberId = 2;
+  string companyName = 3;
+  string shipperName = 4;
+  string businessRegistrationNumber = 5;
+  string fromAddress = 6;
+  string toAddress = 7;
+  string shipmentDate = 8;
+  string shipmentType = 9;
+  string comment = 10;
+  string shipmentStatus = 11;
+}
