@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,9 +24,10 @@ public class ShipmentApiController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ShipmentDTO.BasicInfo>> getAll() {
-        List<ShipmentDTO.BasicInfo> all = shipmentService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(all);
+    public CompletableFuture<ResponseEntity<List<ShipmentDTO.BasicInfo>>> getAll() {
+        return shipmentService.getAll()
+                .thenApply(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .exceptionally(ex -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
     @GetMapping("/{shipmentId}")

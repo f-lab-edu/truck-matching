@@ -5,12 +5,14 @@ import com.flab.moduleshipper.shipment.dto.ShipmentDTO;
 import com.flab.moduleshipper.shipment.repository.ShipmentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -18,21 +20,26 @@ import java.util.Optional;
 public class ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
+    private final ShipmentProducer shipmentProducer;
 
     public String create(ShipmentDTO.ShipmentRequest req) {
         Shipment shipment = req.dtoToDomain(req);
         Shipment save = shipmentRepository.save(shipment);
+        shipmentProducer.sendShipment(save);
         return save.getShipmentId();
     }
 
-    public List<ShipmentDTO.BasicInfo> getAll() {
-        List<Shipment> shipments = shipmentRepository.findAll();
-        List<ShipmentDTO.BasicInfo> basicInfoList = new ArrayList<>();
-        for (Shipment shipment : shipments) {
-            ShipmentDTO.BasicInfo basicInfo = new ShipmentDTO.BasicInfo(shipment);
-            basicInfoList.add(basicInfo);
-        }
-        return basicInfoList;
+    @Async
+    public CompletableFuture<List<ShipmentDTO.BasicInfo>> getAll() {
+        return CompletableFuture.supplyAsync(() -> {
+            List<Shipment> shipments = shipmentRepository.findAll();
+            List<ShipmentDTO.BasicInfo> basicInfoList = new ArrayList<>();
+            for (Shipment shipment : shipments) {
+                ShipmentDTO.BasicInfo basicInfo = new ShipmentDTO.BasicInfo(shipment);
+                basicInfoList.add(basicInfo);
+            }
+            return basicInfoList;
+        });
     }
 
     public ShipmentDTO.BasicInfo get(String shipmentId) {

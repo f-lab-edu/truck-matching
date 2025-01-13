@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'com.google.protobuf' version '0.9.4'
 }
 
 group = 'com.flab'
@@ -19,6 +20,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url "https://packages.confluent.io/maven/" }
 }
 
 dependencies {
@@ -42,6 +44,26 @@ dependencies {
 	// mysql
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+
+	// protobuf
+	implementation 'com.google.protobuf:protobuf-java:3.25.5'
+	implementation 'io.confluent:kafka-protobuf-serializer:7.4.8'
+}
+
+protobuf {
+	protoc {
+		artifact = "com.google.protobuf:protoc:3.25.5"
+	}
+	generateProtoTasks {
+		all().each { task ->
+			task.builtins {
+				java { }
+			}
+		}
+	}
 }
 
 tasks.named('test') {
